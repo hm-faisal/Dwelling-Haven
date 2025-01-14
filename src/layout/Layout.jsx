@@ -5,15 +5,17 @@ import useDevice from "../hooks/useDevice";
 
 const Layout = () => {
   const { minHeight } = useDevice();
-  console.log(minHeight);
   return (
-    <>
+    <div data-theme="light">
       <Navbar />
-      <div style={{ minHeight: minHeight && minHeight }}>
+      <div
+        style={{ minHeight: minHeight && minHeight }}
+        className="flex justify-center items-center flex-col"
+      >
         <Outlet />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

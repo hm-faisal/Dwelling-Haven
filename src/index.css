@@ -1,3 +1,33 @@
+/**
+* Import Google fonts
+*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
+
+/**
+* use tailwind css 
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Roboto Condensed", serif;
+}
+
+/* @layer base {
+  :root {
+    --text: #0d0707;
+    --background: #f7f7f7;
+    --primary: #a49a6d;
+    --secondary: #abcac2;
+    --accent: #8f9cb8;
+  }
+  .dark {
+    --text: #f8f2f2;
+    --background: #080808;
+    --primary: #90865a;
+    --secondary: #35554d;
+    --accent: #485470;
+  }
+} */
