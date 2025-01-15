@@ -18,7 +18,6 @@ const SocialLogin = () => {
             email: res.user.email,
             name: res.user.displayName,
             role: "user",
-            isFraud: false,
           })
           .then((res) => console.log(res.data));
         navigate(location.state ? location?.state : "/");

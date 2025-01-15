@@ -25,7 +25,6 @@ const ManageProperties = () => {
         refetch();
       });
   };
-  console.log(property);
   if (isLoading) return <Loading />;
   return (
     <>
