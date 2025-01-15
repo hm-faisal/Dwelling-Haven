@@ -3,11 +3,13 @@ import swal from "sweetalert";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
 
 const SignUp = () => {
   const { setUser, signUpUserWithEmailPassword, updateUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosBase = useAxios();
 
   const {
     register,
@@ -19,8 +21,17 @@ const SignUp = () => {
     const { email, password, name, profile } = data;
     signUpUserWithEmailPassword(email, password)
       .then((res) => {
-        updateUser(name, profile);
-        setUser(res.user);
+        updateUser(name, profile).then(() => {
+          setUser(res.user);
+          axiosBase
+            .post("/user", {
+              email: res.user.email,
+              name: res.user.displayName,
+              role: "user",
+              isFraud: false,
+            })
+            .then((res) => console.log(res.data));
+        });
         swal("Sign Up Successful", "successfully, sign up account", "success");
         navigate(location.state ? location?.state : "/");
       })

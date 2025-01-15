@@ -40,7 +40,7 @@ const SignIn = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex justify-center items-center gap-4 flex-col max-w-sm mx-auto"
         >
-          {/* name input box */}
+          {/* email input box */}
           <div className="form-control w-full">
             <label className="label font-bold">
               <span className="label-text">Email</span>

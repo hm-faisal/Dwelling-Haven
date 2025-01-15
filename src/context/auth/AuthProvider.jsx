@@ -24,38 +24,36 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        const user = { email: currentUser.email };
-        axiosBase
-          .post("/jwt", user, {
-            withCredentials: true,
-          })
-          .then(() => {
-            setUser(currentUser);
-            setLoading(false);
-          })
-          .catch((e) => console.log(e));
-      } else {
-        axiosBase
-          .post(
-            "/logout",
-            {},
-            {
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            console.log("Sign Out Token", res.data);
-            setLoading(false);
-          })
-          .catch((e) => console.log(e));
-      }
+      // if (currentUser) {
+      //   const user = { email: currentUser.email };
+      //   axiosBase
+      //     .post("/jwt", user, {
+      //       withCredentials: true,
+      //     })
+      //     .then(() => {
+      //       setUser(currentUser);
+      //       setLoading(false);
+      //     })
+      //     .catch((e) => console.log(e));
+      // } else {
+      //   axiosBase
+      //     .post(
+      //       "/logout",
+      //       {},
+      //       {
+      //         withCredentials: true,
+      //       }
+      //     )
+      //     .then((res) => {
+      //       console.log("Sign Out Token", res.data);
+      //       setLoading(false);
+      //     })
+      //     .catch((e) => console.log(e));
+      // }
       setUser(currentUser);
     });
     return unsubscribe;
   }, []);
-
-  console.log(user);
 
   // Register New user with email password
 
