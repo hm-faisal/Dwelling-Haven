@@ -4,14 +4,10 @@ import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
 import { Link } from "react-router";
 
-const MyProperties = () => {
+const Properties = () => {
   const axiosBase = useAxios();
   const { user } = useAuth();
-  const {
-    data: property = [],
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: property = [], isLoading } = useQuery({
     queryKey: ["property", user],
     queryFn: async () => {
       const { data } = await axiosBase.get(
@@ -22,15 +18,8 @@ const MyProperties = () => {
   });
 
   if (isLoading) return <Loading />;
-  console.log(property);
-  const onDelete = (id) => {
-    axiosBase.delete(`/delete-property/${id}`).then((res) => {
-      console.log(res.data);
-      refetch();
-    });
-  };
   return (
-    <>
+    <div className="m-12">
       {property.length > 0 ? (
         <div className="grid grid-cols-4 gap-3">
           {property.map((item) => (
@@ -80,21 +69,13 @@ const MyProperties = () => {
                 </p>
 
                 {/* Action Buttons */}
-                <div className="card-actions mt-4 flex justify-between">
-                  {item.verify_status !== "Rejected" && (
-                    <Link
-                      className="btn btn-primary btn-sm"
-                      to={`/agent/update-properties/${item._id}`}
-                    >
-                      Update
-                    </Link>
-                  )}
-                  <button
-                    className="btn btn-error btn-sm"
-                    onClick={() => onDelete(item._id)}
+                <div className="card-actions mt-4 flex justify-end">
+                  <Link
+                    className="btn btn-primary btn-sm"
+                    to={`/properties/${item._id}`}
                   >
-                    Delete
-                  </button>
+                    Details
+                  </Link>
                 </div>
               </div>
             </div>
@@ -105,8 +86,8 @@ const MyProperties = () => {
           No Property found
         </div>
       )}
-    </>
+    </div>
   );
 };
 
-export default MyProperties;
+export default Properties;
