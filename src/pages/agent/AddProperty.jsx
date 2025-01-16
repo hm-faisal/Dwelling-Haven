@@ -32,10 +32,11 @@ const AddProperty = () => {
   };
 
   return (
-    <>
+    <div className="mx-12 mb-12 ">
+      <h2 className="text-5xl font-bold">Add a Property</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-2 gap-6 my-20"
+        className="grid grid-cols-2 gap-6 my-8"
       >
         {/* Property Agent */}
         <div className="form-control w-full">
@@ -319,7 +320,7 @@ const AddProperty = () => {
           className="btn btn-secondary mt-6"
         />
       </form>
-    </>
+    </div>
   );
 };
 

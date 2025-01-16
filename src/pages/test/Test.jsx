@@ -1,29 +1,28 @@
-import axios from "axios";
+import React, { useState } from "react";
 
-const Test = () => {
-  const uploadfile = async (e) => {
-    e.preventDefault();
-    const imageData = e.target.img.files[0];
-    const formData = new FormData();
-    formData.append("image", imageData);
-    const { data } = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${
-        import.meta.env.VITE_IMGBB_API_KEY
-      }`,
-      formData
-    );
-    console.log(data);
+function Example() {
+  const [selectedOption, setSelectedOption] = useState("option2");
+
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
   };
-  return (
-    <>
-      <div>
-        <form onSubmit={uploadfile}>
-          <input type="file" name="img" multiple={true} />
-          <input type="submit" value="Upload" />
-        </form>
-      </div>
-    </>
-  );
-};
 
-export default Test;
+  return (
+    <div>
+      <label htmlFor="select">Choose an option:</label>
+      <select
+        id="select"
+        value={selectedOption}
+        onChange={handleChange}
+        className="border p-2"
+      >
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+      <p>Selected: {selectedOption}</p>
+    </div>
+  );
+}
+
+export default Example;

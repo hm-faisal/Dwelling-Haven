@@ -3,7 +3,6 @@ import Layout from "../layout/Layout";
 import Home from "../pages/home/Home";
 import SignIn from "../pages/auth/SignIn";
 import SignUp from "../pages/auth/SignUp";
-import AddProperty from "../pages/addProperty/AddProperty";
 import Test from "../pages/test/Test";
 import AdminLayout from "../layout/AdminLayout";
 import Admin from "../pages/admin/Admin";
@@ -15,6 +14,13 @@ import UserLayout from "../layout/UserLayout";
 import PropertyBought from "../pages/user/property/PropertyBought";
 import ManageWishlist from "../pages/user/wishlist/ManageWishlist";
 import MyReview from "../pages/user/review/MyReview";
+import AgentLayout from "../layout/AgentLayout";
+import Agent from "../pages/agent/Agent";
+import MyProperties from "../pages/agent/MyProperties";
+import AddProperty from "../pages/agent/AddProperty";
+import MySold from "../pages/agent/MySold";
+import RequestedProperties from "../pages/agent/RequestedProperties";
+import UpdateProperties from "../pages/agent/UpdateProperties";
 
 const PublicRoutes = () => {
   return (
@@ -24,7 +30,6 @@ const PublicRoutes = () => {
         <Route index element={<Home />} />
 
         {/* Add Property Page  */}
-        <Route path={"add-Properties"} element={<AddProperty />} />
 
         {/* Auth Page  */}
         <Route path="sign-in" element={<SignIn />} />
@@ -35,7 +40,7 @@ const PublicRoutes = () => {
         <Route path="test" element={<Test />} />
       </Route>
       {/* User Route  */}
-      <Route path="/user" element={<UserLayout />}>
+      <Route path="user" element={<UserLayout />}>
         {/* Profile Page  */}
         <Route path="profile" element={<Dashboard />} />
 
@@ -44,6 +49,21 @@ const PublicRoutes = () => {
         <Route path="manage-wishlist" element={<ManageWishlist />} />
 
         <Route path="my-reviews" element={<MyReview />} />
+      </Route>
+
+      {/* Agent Route  */}
+      <Route path="agent" element={<AgentLayout />}>
+        <Route path="profile" element={<Agent />} />
+
+        <Route path="add-Properties" element={<AddProperty />} />
+
+        <Route path="my-properties" element={<MyProperties />} />
+
+        <Route path="update-properties/:id" element={<UpdateProperties />} />
+
+        <Route path="sold-properties" element={<MySold />} />
+
+        <Route path="requested-properties" element={<RequestedProperties />} />
       </Route>
 
       {/* Admin Route  */}
