@@ -10,6 +10,11 @@ import Admin from "../pages/admin/Admin";
 import ManageProperties from "../pages/admin/manageProperties/ManageProperties";
 import ManageUsers from "../pages/admin/manageUsers/ManageUsers";
 import ManageReview from "../pages/admin/manageReview/ManageReview";
+import Dashboard from "../pages/user/dashboard/Dashboard";
+import UserLayout from "../layout/UserLayout";
+import PropertyBought from "../pages/user/property/PropertyBought";
+import ManageWishlist from "../pages/user/wishlist/ManageWishlist";
+import MyReview from "../pages/user/review/MyReview";
 
 const PublicRoutes = () => {
   return (
@@ -21,12 +26,24 @@ const PublicRoutes = () => {
         {/* Add Property Page  */}
         <Route path={"add-Properties"} element={<AddProperty />} />
 
-        {/* Sign In Page  */}
+        {/* Auth Page  */}
         <Route path="sign-in" element={<SignIn />} />
+
         <Route path="sign-up" element={<SignUp />} />
 
         {/* Testing Page  */}
         <Route path="test" element={<Test />} />
+      </Route>
+      {/* User Route  */}
+      <Route path="/user" element={<UserLayout />}>
+        {/* Profile Page  */}
+        <Route path="profile" element={<Dashboard />} />
+
+        <Route path="property-bought" element={<PropertyBought />} />
+
+        <Route path="manage-wishlist" element={<ManageWishlist />} />
+
+        <Route path="my-reviews" element={<MyReview />} />
       </Route>
 
       {/* Admin Route  */}

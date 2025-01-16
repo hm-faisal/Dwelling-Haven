@@ -1,19 +1,16 @@
 import { Link, NavLink } from "react-router";
-import useDevice from "../hooks/useDevice";
-import useAuth from "../hooks/useAuth";
+import useDevice from "../../hooks/useDevice";
 
-const Navbar = () => {
-  const { user, signOutUser } = useAuth();
+const Navbar = ({ className }) => {
   const { siteName } = useDevice();
-  const signOutHandler = () => {
-    signOutUser();
-  };
+
   const navItems = () => {
     const navItemsClassNames = "";
     const items = {
-      "/": "Home",
-      "/all-properties": "All properties",
-      "/user/profile": "Dashboard",
+      "/user/profile": "My Profile",
+      "/user/manage-wishlist": "Manage Wishlist",
+      "/user/property-bought": "Property bought",
+      "/user/my-reviews": "My reviews",
     };
     return Object.entries(items).map((entry, i) => (
       <li key={i}>
@@ -26,7 +23,9 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-opacity-25 fixed z-10 font-semibold">
+      <div
+        className={`navbar bg-opacity-25  font-semibold flex-col justify-between items-start ${className}`}
+      >
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -55,31 +54,11 @@ const Navbar = () => {
           <Link to={"/"} className="btn border-none text-text bg-transparent">
             {siteName}
           </Link>
-          <ul className="menu menu-horizontal px-1">{navItems()}</ul>
         </div>
-        <div className="navbar-end">
-          {user ? (
-            <>
-              <img
-                src={user.photoURL}
-                className="w-12 h-12 rounded-full mr-2"
-              />
-              <span className="mr-2">{user.displayName}</span>
-              <button className="btn" onClick={signOutHandler}>
-                logout
-              </button>
-            </>
-          ) : (
-            <>
-              <NavLink to={"/sign-in"} className="btn mr-2">
-                Sign In
-              </NavLink>
-              <NavLink to={"/sign-up"} className="btn">
-                Sign Up
-              </NavLink>
-            </>
-          )}
+        <div className="navbar-center">
+          <ul className="menu menu-vertical px-1">{navItems()}</ul>
         </div>
+        <div className="navbar-end"></div>
       </div>
     </>
   );
