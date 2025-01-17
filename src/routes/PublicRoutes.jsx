@@ -21,6 +21,7 @@ import AddProperty from "../pages/agent/AddProperty";
 import MySold from "../pages/agent/MySold";
 import RequestedProperties from "../pages/agent/RequestedProperties";
 import UpdateProperties from "../pages/agent/UpdateProperties";
+import PropertyDetails from "../pages/property/PropertyDetails";
 
 const PublicRoutes = () => {
   return (
@@ -28,6 +29,8 @@ const PublicRoutes = () => {
       <Route path="/" element={<Layout />}>
         {/* Home page  */}
         <Route index element={<Home />} />
+
+        <Route path="/properties/:id" element={<PropertyDetails />} />
 
         {/* Add Property Page  */}
 

@@ -24,7 +24,12 @@ const AddProperty = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    const submitData = { images, category, ...data };
+    const submitData = {
+      images,
+      category,
+      agent_profile: user.photoURL,
+      ...data,
+    };
     axiosBase
       .post("/add-properties", submitData)
       .then((res) => console.log(res.data))
