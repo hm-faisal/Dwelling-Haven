@@ -22,6 +22,7 @@ import MySold from "../pages/agent/MySold";
 import RequestedProperties from "../pages/agent/RequestedProperties";
 import UpdateProperties from "../pages/agent/UpdateProperties";
 import PropertyDetails from "../pages/property/PropertyDetails";
+import BuyProperty from "../pages/buyProperty/BuyProperty";
 
 const PublicRoutes = () => {
   return (
@@ -31,8 +32,6 @@ const PublicRoutes = () => {
         <Route index element={<Home />} />
 
         <Route path="/properties/:id" element={<PropertyDetails />} />
-
-        {/* Add Property Page  */}
 
         {/* Auth Page  */}
         <Route path="sign-in" element={<SignIn />} />
@@ -46,6 +45,8 @@ const PublicRoutes = () => {
       <Route path="user" element={<UserLayout />}>
         {/* Profile Page  */}
         <Route path="profile" element={<Dashboard />} />
+
+        <Route path="buy-properties/:id" element={<BuyProperty />} />
 
         <Route path="property-bought" element={<PropertyBought />} />
 

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxios from "../../../hooks/useAxios";
 import Loading from "../../../components/Loading";
+import { Link } from "react-router";
 
 const ManageWishlist = () => {
   const axiosBase = useAxios();
@@ -78,9 +79,12 @@ const ManageWishlist = () => {
                   {/* Action Buttons */}
                   <div className="card-actions mt-4 flex justify-between">
                     {item.verify_status !== "Rejected" && (
-                      <button className="btn btn-primary btn-sm">
+                      <Link
+                        className="btn btn-primary btn-sm"
+                        to={`/user/buy-properties/${item._id}`}
+                      >
                         Make an Offer
-                      </button>
+                      </Link>
                     )}
                     <button
                       className="btn btn-error btn-sm"

@@ -55,8 +55,8 @@ const Reviews = ({ id }) => {
             </label>
             <input
               type="number"
-              min={0}
-              max={5}
+              min={0.0}
+              max={5.0}
               placeholder="4.9"
               className="input input-bordered"
               {...register("rating", { required: true })}
