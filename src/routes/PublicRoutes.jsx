@@ -23,6 +23,7 @@ import RequestedProperties from "../pages/agent/RequestedProperties";
 import UpdateProperties from "../pages/agent/UpdateProperties";
 import PropertyDetails from "../pages/property/PropertyDetails";
 import BuyProperty from "../pages/buyProperty/BuyProperty";
+import AllProperties from "../pages/allProperties/AllProperties";
 
 const PublicRoutes = () => {
   return (
@@ -31,7 +32,9 @@ const PublicRoutes = () => {
         {/* Home page  */}
         <Route index element={<Home />} />
 
-        <Route path="/properties/:id" element={<PropertyDetails />} />
+        <Route path="all-properties" element={<AllProperties />} />
+
+        <Route path="properties/:id" element={<PropertyDetails />} />
 
         {/* Auth Page  */}
         <Route path="sign-in" element={<SignIn />} />

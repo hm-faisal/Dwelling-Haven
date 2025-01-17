@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
 import { Link } from "react-router";
 
-const Properties = () => {
+const AllProperties = () => {
   const axiosBase = useAxios();
   const { user } = useAuth();
   const { data: property = [], isLoading } = useQuery({
@@ -88,4 +88,4 @@ const Properties = () => {
   );
 };
 
-export default Properties;
+export default AllProperties;
