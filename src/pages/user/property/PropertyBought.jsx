@@ -21,13 +21,12 @@ const PropertyBought = () => {
 
   if (isLoading) return <Loading />;
 
-  console.log(property);
   return (
     <>
       <div className="grid grid-cols-4 gap-4 mx-12">
         {property.length > 0
           ? property.map((property, i) => (
-              <PropertyCard property={property} key={i} />
+              <PropertyCard property={property} key={i} refetch={refetch} />
             ))
           : "No Property Found"}
       </div>

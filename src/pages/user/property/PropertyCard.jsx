@@ -1,17 +1,79 @@
-const PropertyCard = ({ property }) => {
+import PropTypes from "prop-types";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "./CheckoutForm";
+import { useState } from "react";
+import useAxios from "../../../hooks/useAxios";
+
+const PropertyCard = ({ property, refetch }) => {
+  const axiosBase = useAxios();
+
+  const [clientSecret, setClientSecret] = useState("");
   const {
-    property_name: title,
+    title,
     images,
-    property_Agent: agent,
+    agentName: agent,
+    agentEmail,
+    customer_email,
     price: amount,
     status,
-    property_location: location,
+    location,
+    propertyId,
+    _id: id,
+    transactionId,
   } = property;
+
+  console.log(property);
+
+  const stripePromise = loadStripe(
+    import.meta.env.VITE_PAYMENT_PUBLISHABLE_KEY
+  );
+
+  const paymentIntend = async (amount) => {
+    try {
+      const { data } = await axiosBase.post("/payment-intend", {
+        pay: amount * 100,
+      });
+      setClientSecret(data.clientSecret);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white border border-gray-200">
+      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box relative">
+          <h3 className="font-bold text-lg">Pay and get Your Property </h3>
+          <p className="py-4 my-4 ">
+            Total Applicable Amount :{" "}
+            <span className="font-bold">{amount}</span> $
+          </p>
+          <Elements stripe={stripePromise}>
+            <CheckoutForm
+              amount={amount}
+              clientSecret={clientSecret}
+              agentEmail={agentEmail}
+              customerEmail={customer_email}
+              propertyId={propertyId}
+              refetch={refetch}
+              id={id}
+            />
+          </Elements>
+          <div className="modal-action absolute bottom-6 right-6">
+            <form method="dialog">
+              <button className="btn btn-error">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
       {/* Property Image */}
-      <img className="w-full h-48 object-cover" src={images[0]} alt={title} />
+      <img
+        className="w-full h-48 object-cover"
+        src={images && images[0]}
+        alt={title}
+      />
 
       {/* Card Content */}
       <div className="px-6 py-4">
@@ -43,14 +105,31 @@ const PropertyCard = ({ property }) => {
             {status}
           </p>
           {status === "Available" && (
-            <button className="bg-primary text-sm font-medium px-2 py-1 inline-block rounded-md ">
-              pay
-            </button>
+            <>
+              <button
+                className="bg-primary text-sm font-medium px-2 py-1 inline-block rounded-md"
+                onClick={() => {
+                  paymentIntend(amount);
+                  return document.getElementById("my_modal_5").showModal();
+                }}
+              >
+                pay
+              </button>
+            </>
           )}
         </div>
+        {transactionId && (
+          <div className="my-4">
+            Transaction Id : <span>{transactionId}</span>
+          </div>
+        )}
       </div>
     </div>
   );
+};
+PropertyCard.propTypes = {
+  property: PropTypes.object,
+  refetch: PropTypes.func,
 };
 
 export default PropertyCard;

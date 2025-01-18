@@ -51,14 +51,15 @@ const BuyProperty = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    data.images = property.images;
-    data.status = "pending";
-    data.price = offerPrice || property.price_min;
-    data.customer_name = user.displayName;
-    data.customer_email = user.email;
-    data.agent_email = property.agentEmail;
+    const submitData = {
+      status: "pending",
+      price: data.offerPrice || property.price_min,
+      customer_name: user.displayName,
+      customer_email: user.email,
+      property: property.propertyId,
+    };
     axiosBase
-      .post("/properties-sell", data)
+      .post("/properties-sell", submitData)
       .then((res) => console.log(res.data))
       .catch((e) => console.log(e));
   };
