@@ -33,7 +33,14 @@ const AllRoutes = () => {
         {/* Home page  */}
         <Route index element={<Home />} />
 
-        <Route path="all-properties" element={<AllProperties />} />
+        <Route
+          path="all-properties"
+          element={
+            <PrivateRoute>
+              <AllProperties />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="properties/:id"

@@ -10,7 +10,7 @@ const Properties = () => {
   const { data: property = [], isLoading } = useQuery({
     queryKey: ["property", user],
     queryFn: async () => {
-      const { data } = await axiosBase.get(`/my-properties`);
+      const { data } = await axiosBase.get(`/my-properties?page=home`);
       return data;
     },
   });
@@ -48,7 +48,7 @@ const Properties = () => {
                 {/* Agent Info */}
                 <div className="flex items-center mt-2">
                   <img
-                    src={user?.photoURL}
+                    src={item.agent_profile}
                     alt="Agent"
                     className="w-10 h-10 rounded-full mr-3"
                   />

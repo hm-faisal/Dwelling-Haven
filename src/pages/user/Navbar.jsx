@@ -1,8 +1,13 @@
 import { Link, NavLink } from "react-router";
 import useDevice from "../../hooks/useDevice";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = ({ className }) => {
   const { siteName } = useDevice();
+  const { signOutUser } = useAuth();
+  const signOutHandler = () => {
+    signOutUser();
+  };
 
   const navItems = () => {
     const navItemsClassNames = "";
@@ -58,7 +63,11 @@ const Navbar = ({ className }) => {
         <div className="navbar-center">
           <ul className="menu menu-vertical px-1">{navItems()}</ul>
         </div>
-        <div className="navbar-end"></div>
+        <div className="navbar-end justify-start btn border-none text-text bg-transparent">
+          <button type="button" onClick={signOutHandler}>
+            Logout
+          </button>
+        </div>
       </div>
     </>
   );

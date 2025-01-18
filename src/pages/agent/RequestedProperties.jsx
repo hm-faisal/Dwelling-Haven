@@ -33,80 +33,87 @@ const RequestedProperties = () => {
       });
   };
 
-  console.log(property);
   return (
     <>
-      <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Property</th>
-              <th>Customer</th>
-              <th>Offered Price ($)</th>
-              <th>Action</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {property.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div>
-                      <div className="font-bold">{item.title}</div>
-                      <div className="text-sm opacity-50">{item.location}</div>
+      {property.length > 0 ? (
+        <div className="overflow-x-auto">
+          <table className="table">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Customer</th>
+                <th>Offered Price ($)</th>
+                <th>Action</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {property.map((item) => (
+                <tr key={item._id}>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <div className="font-bold">{item.title}</div>
+                        <div className="text-sm opacity-50">
+                          {item.location}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  {item.customer_name}
-                  <br />
-                  <span className="badge badge-ghost badge-sm">
-                    {item.customer_email}
-                  </span>
-                </td>
-                <td>{item.price}</td>
-                <th className="space-x-1">
-                  {item.status === "Verified" ? (
-                    <button
-                      className="btn btn-primary btn-xs"
-                      onClick={() => verifyProperty(item._id, "accept")}
-                      disabled
-                    >
-                      Accept
-                    </button>
-                  ) : item.verify_status === "Rejected" ? (
-                    <button
-                      className="btn btn-secondary btn-xs"
-                      onClick={() => verifyProperty(item._id, "reject")}
-                      disabled
-                    >
-                      Reject
-                    </button>
-                  ) : (
-                    <>
+                  </td>
+                  <td>
+                    {item.customer_name}
+                    <br />
+                    <span className="badge badge-ghost badge-sm">
+                      {item.customer_email}
+                    </span>
+                  </td>
+                  <td>{item.price}</td>
+                  <th className="space-x-1">
+                    {item.status === "Verified" ? (
                       <button
                         className="btn btn-primary btn-xs"
                         onClick={() => verifyProperty(item._id, "accept")}
+                        disabled
                       >
                         Accept
                       </button>
+                    ) : item.verify_status === "Rejected" ? (
                       <button
                         className="btn btn-secondary btn-xs"
                         onClick={() => verifyProperty(item._id, "reject")}
+                        disabled
                       >
                         Reject
                       </button>
-                    </>
-                  )}
-                </th>
-                <td>{item.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                    ) : (
+                      <>
+                        <button
+                          className="btn btn-primary btn-xs"
+                          onClick={() => verifyProperty(item._id, "accept")}
+                        >
+                          Accept
+                        </button>
+                        <button
+                          className="btn btn-secondary btn-xs"
+                          onClick={() => verifyProperty(item._id, "reject")}
+                        >
+                          Reject
+                        </button>
+                      </>
+                    )}
+                  </th>
+                  <td>{item.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-full font-bold">
+          No Request Found
+        </div>
+      )}
     </>
   );
 };

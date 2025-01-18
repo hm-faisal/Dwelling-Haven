@@ -4,12 +4,15 @@ import uploadImage from "../../utils/uploadImage";
 import { RxCross2 } from "react-icons/rx";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+import swal from "sweetalert";
+import { useNavigate } from "react-router";
 
 const AddProperty = () => {
   const { user } = useAuth();
   const axiosBase = useAxios();
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
+  const navigate = useNavigate();
   const property_image = async (e) => {
     const image = await uploadImage(e);
     setImages([...images, image.data.url]);
@@ -32,8 +35,13 @@ const AddProperty = () => {
     };
     axiosBase
       .post("/add-properties", submitData)
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e));
+      .then((res) => {
+        if (res.data) {
+          swal("Property Added", res.data?.message, "success");
+          navigate("/agent/my-properties");
+        }
+      })
+      .catch((e) => swal("Something went wrong", e, "error"));
   };
 
   return (

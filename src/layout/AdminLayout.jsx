@@ -14,6 +14,8 @@ const AdminLayout = () => {
     );
   }
 
+  console.log(userRole);
+
   if (userRole === "admin") {
     return (
       <div className="grid grid-cols-12 h-[100vh] grid-rows-12">
