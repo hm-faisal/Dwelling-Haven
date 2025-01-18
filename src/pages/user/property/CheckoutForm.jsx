@@ -3,11 +3,31 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useAxios from "../../../hooks/useAxios";
 
 import "./common.css";
+import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
-const CheckoutForm = ({ amount, clientSecret, refetch, id }) => {
+const CheckoutForm = ({ amount, refetch }) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosBase = useAxios();
+  const navigate = useNavigate();
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    paymentIntend(amount);
+  }, []);
+
+  const paymentIntend = async (amount) => {
+    try {
+      const { data } = await axiosBase.post("/payment-intend", {
+        pay: amount,
+      });
+      setClientSecret(data.clientSecret);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleSubmit = async (event) => {
     // Block native form submission.
@@ -50,12 +70,12 @@ const CheckoutForm = ({ amount, clientSecret, refetch, id }) => {
     if (paymentIntent?.status === "succeeded") {
       try {
         axiosBase
-          .patch(`/sell-properties/${id}`, {
+          .patch(`/sell-properties/${localStorage.getItem("propertyId")}`, {
             status: "Bought",
             id: paymentIntent.id,
           })
-          .then((res) => {
-            console.log(res.data);
+          .then(() => {
+            navigate("/user/property-bought");
             refetch();
           });
       } catch (e) {
@@ -82,7 +102,11 @@ const CheckoutForm = ({ amount, clientSecret, refetch, id }) => {
           },
         }}
       />
-      <button type="submit" disabled={!stripe} className="btn btn-primary">
+      <button
+        type="submit"
+        disabled={!stripe || !clientSecret}
+        className="btn btn-primary"
+      >
         {`Pay ${amount} $`}
       </button>
     </form>
@@ -94,7 +118,6 @@ CheckoutForm.propTypes = {
   clientSecret: PropTypes.string,
   amount: PropTypes.any,
   refetch: PropTypes.func,
-  id: PropTypes.any,
 };
 
 export default CheckoutForm;

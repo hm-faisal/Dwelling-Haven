@@ -1,9 +1,14 @@
 import { Link, NavLink } from "react-router";
 import useDevice from "../hooks/useDevice";
 import useAuth from "../hooks/useAuth";
+import useAxios from "../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "./Loading";
+import { useState } from "react";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
+  const [userRole, setUserRole] = useState("user");
   const { siteName } = useDevice();
   const signOutHandler = () => {
     signOutUser();
@@ -13,7 +18,6 @@ const Navbar = () => {
     const items = {
       "/": "Home",
       "/all-properties": "All properties",
-      "/user/profile": "Dashboard",
     };
     return Object.entries(items).map((entry, i) => (
       <li key={i}>
@@ -23,6 +27,17 @@ const Navbar = () => {
       </li>
     ));
   };
+  const axiosBase = useAxios();
+  const { _data, isLoading } = useQuery({
+    queryKey: ["users", user],
+    queryFn: async () => {
+      const { data } = await axiosBase.get(`/users/${user?.email}`);
+      setUserRole(data.role);
+      return data;
+    },
+  });
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -50,12 +65,44 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               {navItems()}
+              {user && (
+                <li>
+                  <NavLink
+                    to={
+                      userRole === "admin"
+                        ? "/admin/profile"
+                        : userRole === "agent"
+                        ? "/agent/profile"
+                        : "/user/profile"
+                    }
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+              )}
             </ul>
           </div>
           <Link to={"/"} className="btn border-none text-text bg-transparent">
             {siteName}
           </Link>
-          <ul className="menu menu-horizontal px-1">{navItems()}</ul>
+          <ul className="menu menu-horizontal px-1">
+            {navItems()}
+            {user && (
+              <li>
+                <NavLink
+                  to={
+                    userRole === "admin"
+                      ? "/admin/profile"
+                      : userRole === "agent"
+                      ? "/agent/profile"
+                      : "/user/profile"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            )}
+          </ul>
         </div>
         <div className="navbar-end">
           {user ? (

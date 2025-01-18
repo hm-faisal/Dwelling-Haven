@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
 import Loading from "../../../components/Loading";
+import useAuth from "../../../hooks/useAuth";
 
 const ManageUsers = () => {
+  const { deleteCurrentUser } = useAuth();
   const axiosBase = useAxios();
   const {
     data: users = [],
@@ -37,6 +39,18 @@ const ManageUsers = () => {
         refetch();
       });
   };
+
+  const onDelete = (id) => {
+    axiosBase
+      .delete(`/delete-user/${id}`)
+      .then(() => {
+        deleteCurrentUser().then((res) => {
+          console.log(res);
+          refetch();
+        });
+      })
+      .catch((e) => console.log(e));
+  };
   if (isLoading) return <Loading />;
   return (
     <>
@@ -49,7 +63,7 @@ const ManageUsers = () => {
               <th>Email</th>
               <th>Action</th>
               <th>isFraud</th>
-              <th>Status</th>
+              <th>Role</th>
             </tr>
           </thead>
           <tbody>
@@ -87,8 +101,8 @@ const ManageUsers = () => {
                     ""
                   )}
                   <button
-                    className="btn btn-neutral btn-xs"
-                    // onClick={() => updateUserStatus(item._id, "fraud")}
+                    className="btn btn-error btn-xs"
+                    onClick={() => onDelete(item._id)}
                   >
                     Delete User
                   </button>
@@ -106,15 +120,9 @@ const ManageUsers = () => {
                   )}
                 </td>
                 <th>
-                  {item.status === "fraud" ? (
-                    "Fraud"
-                  ) : (
-                    <>
-                      {item.role === "admin" && "Admin"}
-                      {item.role === "agent" && "Agent"}
-                      {item.role === "user" && "User"}
-                    </>
-                  )}
+                  {item.role === "admin" && "Admin"}
+                  {item.role === "agent" && "Agent"}
+                  {item.role === "user" && "User"}
                 </th>
               </tr>
             ))}

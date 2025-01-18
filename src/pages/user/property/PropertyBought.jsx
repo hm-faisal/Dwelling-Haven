@@ -25,8 +25,12 @@ const PropertyBought = () => {
     <>
       <div className="grid grid-cols-4 gap-4 mx-12">
         {property.length > 0
-          ? property.map((property, i) => (
-              <PropertyCard property={property} key={i} refetch={refetch} />
+          ? property.map((property) => (
+              <PropertyCard
+                property={property}
+                key={property._id}
+                refetch={refetch}
+              />
             ))
           : "No Property Found"}
       </div>

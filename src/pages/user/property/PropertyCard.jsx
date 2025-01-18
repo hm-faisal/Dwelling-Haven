@@ -2,13 +2,8 @@ import PropTypes from "prop-types";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
-import { useState } from "react";
-import useAxios from "../../../hooks/useAxios";
 
 const PropertyCard = ({ property, refetch }) => {
-  const axiosBase = useAxios();
-
-  const [clientSecret, setClientSecret] = useState("");
   const {
     title,
     images,
@@ -19,32 +14,24 @@ const PropertyCard = ({ property, refetch }) => {
     status,
     location,
     propertyId,
-    _id: id,
+    _id,
     transactionId,
   } = property;
-
-  console.log(property);
 
   const stripePromise = loadStripe(
     import.meta.env.VITE_PAYMENT_PUBLISHABLE_KEY
   );
 
-  const paymentIntend = async (amount) => {
-    try {
-      const { data } = await axiosBase.post("/payment-intend", {
-        pay: amount * 100,
-      });
-      setClientSecret(data.clientSecret);
-      return data;
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white border border-gray-200">
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box relative">
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
           <h3 className="font-bold text-lg">Pay and get Your Property </h3>
           <p className="py-4 my-4 ">
             Total Applicable Amount :{" "}
@@ -53,21 +40,15 @@ const PropertyCard = ({ property, refetch }) => {
           <Elements stripe={stripePromise}>
             <CheckoutForm
               amount={amount}
-              clientSecret={clientSecret}
               agentEmail={agentEmail}
               customerEmail={customer_email}
               propertyId={propertyId}
               refetch={refetch}
-              id={id}
             />
           </Elements>
-          <div className="modal-action absolute bottom-6 right-6">
-            <form method="dialog">
-              <button className="btn btn-error">Close</button>
-            </form>
-          </div>
         </div>
       </dialog>
+
       {/* Property Image */}
       <img
         className="w-full h-48 object-cover"
@@ -107,10 +88,11 @@ const PropertyCard = ({ property, refetch }) => {
           {status === "Available" && (
             <>
               <button
-                className="bg-primary text-sm font-medium px-2 py-1 inline-block rounded-md"
+                className="btn"
                 onClick={() => {
-                  paymentIntend(amount);
-                  return document.getElementById("my_modal_5").showModal();
+                  const id = _id;
+                  localStorage.setItem("propertyId", id);
+                  document.getElementById("my_modal_3").showModal();
                 }}
               >
                 pay
