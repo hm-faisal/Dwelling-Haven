@@ -24,8 +24,9 @@ import UpdateProperties from "../pages/agent/UpdateProperties";
 import PropertyDetails from "../pages/property/PropertyDetails";
 import BuyProperty from "../pages/buyProperty/BuyProperty";
 import AllProperties from "../pages/allProperties/AllProperties";
+import PrivateRoute from "./PrivateRoute";
 
-const PublicRoutes = () => {
+const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -34,7 +35,14 @@ const PublicRoutes = () => {
 
         <Route path="all-properties" element={<AllProperties />} />
 
-        <Route path="properties/:id" element={<PropertyDetails />} />
+        <Route
+          path="properties/:id"
+          element={
+            <PrivateRoute>
+              <PropertyDetails />
+            </PrivateRoute>
+          }
+        />
 
         {/* Auth Page  */}
         <Route path="sign-in" element={<SignIn />} />
@@ -44,9 +52,10 @@ const PublicRoutes = () => {
         {/* Testing Page  */}
         <Route path="test" element={<Test />} />
       </Route>
-      {/* User Route  */}
+
+      {/* User Route (private)  */}
+
       <Route path="user" element={<UserLayout />}>
-        {/* Profile Page  */}
         <Route path="profile" element={<Dashboard />} />
 
         <Route path="buy-properties/:id" element={<BuyProperty />} />
@@ -58,7 +67,8 @@ const PublicRoutes = () => {
         <Route path="my-reviews" element={<MyReview />} />
       </Route>
 
-      {/* Agent Route  */}
+      {/* Agent Route (private) */}
+
       <Route path="agent" element={<AgentLayout />}>
         <Route path="profile" element={<Agent />} />
 
@@ -73,19 +83,19 @@ const PublicRoutes = () => {
         <Route path="requested-properties" element={<RequestedProperties />} />
       </Route>
 
-      {/* Admin Route  */}
+      {/* Admin Route (private)  */}
+
       <Route path="admin" element={<AdminLayout />}>
-        {/* Admin Page  */}
         <Route path="profile" element={<Admin />} />
-        {/* Admin Manage Property Page  */}
+
         <Route path="manage-properties" element={<ManageProperties />} />
-        {/* Admin Manage Property Page  */}
+
         <Route path="manage-users" element={<ManageUsers />} />
-        {/* Admin Manage Property Page  */}
+
         <Route path="manage-reviews" element={<ManageReview />} />
       </Route>
     </Routes>
   );
 };
 
-export default PublicRoutes;
+export default AllRoutes;

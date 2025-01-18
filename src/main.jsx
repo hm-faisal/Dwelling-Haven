@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter } from "react-router";
-import PublicRoutes from "./routes/PublicRoutes";
+import AllRoutes from "./routes/AllRoutes";
 import AuthProvider from "./context/auth/AuthProvider";
 import DeviceProvider from "./context/userDeviceInfo/DeviceProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <DeviceProvider>
           <BrowserRouter>
-            <PublicRoutes />
+            <AllRoutes />
           </BrowserRouter>
         </DeviceProvider>
       </AuthProvider>
