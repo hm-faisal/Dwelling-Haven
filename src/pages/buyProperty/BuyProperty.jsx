@@ -12,11 +12,7 @@ const BuyProperty = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const axiosBase = useAxios();
-  const {
-    data: property = {},
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: property = {}, isLoading } = useQuery({
     queryKey: ["property"],
     queryFn: async () => {
       const { data } = await axiosBase.get(`/make-offer/${id}`);
@@ -69,7 +65,7 @@ const BuyProperty = () => {
   return (
     <div className="mx-12 mb-12 ">
       <ToastContainer />
-      <h2 className="text-5xl font-bold">Add a Property</h2>
+      <h2 className="text-5xl font-bold">Make a Offer</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-2 gap-6 my-8"
@@ -116,7 +112,7 @@ const BuyProperty = () => {
             value={property.title || ""}
             readOnly={true}
             className="input input-bordered"
-            {...register("property_name", { required: true })}
+            {...register("property_name")}
           />
           {errors.property_name && (
             <span className="text-red-700">This field is required</span>
@@ -132,7 +128,7 @@ const BuyProperty = () => {
             value={property.location || ""}
             readOnly={true}
             className="input input-bordered"
-            {...register("property_location", { required: true })}
+            {...register("property_location")}
           />
           {errors.property_location && (
             <span className="text-red-700">This field is required</span>
@@ -149,7 +145,7 @@ const BuyProperty = () => {
             value={property.agentName || ""}
             readOnly={true}
             className="input input-bordered"
-            {...register("property_Agent", { required: true })}
+            {...register("property_Agent")}
           />
           {errors.property_Agent && (
             <span className="text-red-700">This field is required</span>

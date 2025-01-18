@@ -41,15 +41,12 @@ const CheckoutForm = ({ amount, clientSecret, refetch, id }) => {
     }
 
     // confirm payment
-    const { paymentIntent } = await stripe.confirmCardPayment(
-      `${clientSecret}`,
-      {
-        payment_method: {
-          card: card,
-          billing_details: {},
-        },
-      }
-    );
+    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+        billing_details: {},
+      },
+    });
     if (paymentIntent?.status === "succeeded") {
       try {
         axiosBase
