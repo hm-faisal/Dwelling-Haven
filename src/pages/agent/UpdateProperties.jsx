@@ -1,5 +1,4 @@
 import { useParams } from "react-router";
-import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
@@ -7,18 +6,16 @@ import { useState } from "react";
 import uploadImage from "../../utils/uploadImage";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import swal from "sweetalert";
 
 const UpdateProperties = () => {
   const { id } = useParams();
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const { user } = useAuth();
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
-  const {
-    data: property = [],
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: property = [], isLoading } = useQuery({
     queryKey: ["property", user],
     queryFn: async () => {
       const { data } = await axiosBase.get(`/properties/${id}`);
@@ -45,7 +42,15 @@ const UpdateProperties = () => {
     console.log(submitData);
     axiosBase
       .put(`/update-properties/${id}`, submitData)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        if (res.data) {
+          swal(
+            "Update Successfully",
+            "Your Property Information update successfully",
+            "success"
+          );
+        }
+      })
       .catch((e) => console.log(e));
   };
 

@@ -5,6 +5,7 @@ import useAxios from "../../../hooks/useAxios";
 import "./common.css";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import { swal } from "sweetalert";
 
 const CheckoutForm = ({ amount, refetch }) => {
   const stripe = useStripe();
@@ -76,6 +77,11 @@ const CheckoutForm = ({ amount, refetch }) => {
           })
           .then(() => {
             navigate("/user/property-bought");
+            swal(
+              "Successful Payment",
+              "Your Payment successfully save our database",
+              "success"
+            );
             refetch();
           });
       } catch (e) {

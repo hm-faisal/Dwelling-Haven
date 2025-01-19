@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../../hooks/useAxios";
 import Loading from "../../../components/Loading";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageUsers = () => {
   const { deleteCurrentUser } = useAuth();
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const {
     data: users = [],
     isLoading,

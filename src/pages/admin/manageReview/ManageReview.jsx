@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../../hooks/useAxios";
 import Loading from "../../../components/Loading";
-import ReviewCard from "../manageUsers/ReviewCard";
+import ReviewCard from "./ReviewCard";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageReview = () => {
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const {
     data: reviews = [],
     isLoading,

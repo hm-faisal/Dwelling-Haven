@@ -1,7 +1,7 @@
 import useAuth from "../../hooks/useAuth";
 
 const Admin = () => {
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
   return (
     <div className="flex justify-center items-center flex-col gap-8 h-full">
       <img
@@ -12,6 +12,7 @@ const Admin = () => {
       <div className="content">
         <h2 className="text-4xl font-bold ">Name: {user?.displayName}</h2>
         <h5 className="text-2xl font-bold ">Email: {user?.email}</h5>
+        {userRole && <h5 className="text-2xl font-bold ">Role: {userRole}</h5>}
       </div>
     </div>
   );

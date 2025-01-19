@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import uploadImage from "../../utils/uploadImage";
 import { RxCross2 } from "react-icons/rx";
-import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import swal from "sweetalert";
 import { useNavigate } from "react-router";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AddProperty = () => {
   const { user } = useAuth();
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
   const navigate = useNavigate();

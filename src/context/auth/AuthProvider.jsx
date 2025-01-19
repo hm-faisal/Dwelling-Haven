@@ -28,34 +28,26 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      // if (currentUser) {
-      //   const user = { email: currentUser.email };
-      //   axiosBase
-      //     .post("/jwt", user, {
-      //       withCredentials: true,
-      //     })
-      //     .then(() => {
-      //       setUser(currentUser);
-      //       setLoading(false);
-      //     })
-      //     .catch((e) => console.log(e));
-      // } else {
-      //   axiosBase
-      //     .post(
-      //       "/logout",
-      //       {},
-      //       {
-      //         withCredentials: true,
-      //       }
-      //     )
-      //     .then((res) => {
-      //       console.log("Sign Out Token", res.data);
-      //       setLoading(false);
-      //     })
-      //     .catch((e) => console.log(e));
-      // }
+      if (currentUser) {
+        const user = { email: currentUser.email };
+        axiosBase
+          .post("/jwt", user, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.data.token) {
+              localStorage.setItem("access-token", res.data.token);
+            }
+            setUser(currentUser);
+            setLoading(false);
+          })
+          .catch((e) => console.log(e));
+      } else {
+        localStorage.removeItem("access-token");
+        setUser(null);
+        setLoading(false);
+      }
       setLoading(false);
-      setUser(currentUser);
     });
     return unsubscribe;
   }, []);
@@ -65,8 +57,10 @@ const AuthProvider = ({ children }) => {
   const { _data, isLoading } = useQuery({
     queryKey: ["users", user],
     queryFn: async () => {
+      setLoading(true);
       const { data } = await axiosBase.get(`/users/${user?.email}`);
       setUserRole(data.role);
+      setLoading(false);
       return data;
     },
   });

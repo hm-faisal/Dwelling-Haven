@@ -1,6 +1,6 @@
 import axios from "axios";
 import useAuth from "./useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import swal from "sweetalert";
 
@@ -15,7 +15,11 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axiosInstance.interceptors.request.use(
-      (res) => res,
+      (res) => {
+        const token = localStorage.getItem("access-token");
+        res.headers.authorization = `bearer ${token}`;
+        return res;
+      },
       (err) => {
         if (err.status === 401 || err.status === 403) {
           signOutUser()

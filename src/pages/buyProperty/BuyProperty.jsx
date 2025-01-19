@@ -7,6 +7,7 @@ import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { swal } from "sweetalert";
 
 const BuyProperty = () => {
   const { id } = useParams();
@@ -56,7 +57,15 @@ const BuyProperty = () => {
     };
     axiosBase
       .post("/properties-sell", submitData)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        if (res.data) {
+          swal(
+            "Send Successful",
+            "Your offer successfully send to out Agent \n Please wait for verify",
+            "success"
+          );
+        }
+      })
       .catch((e) => console.log(e));
   };
 

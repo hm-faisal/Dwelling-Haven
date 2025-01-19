@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
 import { Link } from "react-router";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyProperties = () => {
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const { user } = useAuth();
   const {
     data: property = [],
@@ -22,7 +22,6 @@ const MyProperties = () => {
   });
 
   if (isLoading) return <Loading />;
-  console.log(property);
   const onDelete = (id) => {
     axiosBase.delete(`/delete-property/${id}`).then((res) => {
       console.log(res.data);

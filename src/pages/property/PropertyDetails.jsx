@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
 import { useParams } from "react-router";
 import Loading from "../../components/Loading";
 import { FaLocationDot } from "react-icons/fa6";
@@ -8,10 +7,11 @@ import Overview from "./Overview";
 import Features from "./Features";
 import Details from "./Details";
 import Reviews from "./Reviews";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PropertyDetails = () => {
   const { id } = useParams();
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const { user } = useAuth();
   const { data: property = [], isLoading } = useQuery({
     queryKey: ["property", user],
