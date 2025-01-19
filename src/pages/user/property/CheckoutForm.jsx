@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-
 import "./common.css";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import swal from "sweetalert";
 
 const CheckoutForm = ({ amount, refetch }) => {
   const stripe = useStripe();
@@ -68,8 +68,14 @@ const CheckoutForm = ({ amount, refetch }) => {
             id: paymentIntent.id,
           })
           .then((res) => {
-            if (res.data) {
+            if (res) {
               navigate("/user/property-bought");
+              localStorage.removeItem("propertyId");
+              swal(
+                "Payment Successful",
+                "Your payment Successful Please wait for confirmation",
+                "success"
+              );
             }
             refetch();
           });

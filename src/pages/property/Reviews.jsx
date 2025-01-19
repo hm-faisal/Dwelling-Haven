@@ -4,9 +4,12 @@ import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
+import swal from "sweetalert";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Reviews = ({ id }) => {
   const axiosBase = useAxios();
+  const axiosBaseSecure = useAxiosSecure();
   const { user } = useAuth();
   const {
     data: reviews = [],
@@ -15,7 +18,7 @@ const Reviews = ({ id }) => {
   } = useQuery({
     queryKey: ["reviews", id],
     queryFn: async () => {
-      const { data } = await axiosBase.get(`/reviews/${id}`);
+      const { data } = await axiosBase(`/reviews/${id}`);
       return data;
     },
   });
@@ -32,11 +35,13 @@ const Reviews = ({ id }) => {
       profile: user.photoURL,
       propertyId: id,
     };
-    axiosBase
+    axiosBaseSecure
       .post("/reviews", rating)
       .then((res) => {
         refetch();
-        console.log(res.data);
+        if (res) {
+          swal("Review Added", "Thank You for your valuable voice", "success");
+        }
       })
       .catch((e) => console.log(e));
   };
@@ -93,7 +98,7 @@ const Reviews = ({ id }) => {
         {reviews.length > 0
           ? reviews.map((item) => (
               <div key={item._id} className="shadow p-3">
-                <div className="flex justify-start items-center gap-8">
+                <div className="flex flex-col md:flex-row justify-start items-center gap-8">
                   <img
                     src={item?.profile}
                     alt="agent_photo"

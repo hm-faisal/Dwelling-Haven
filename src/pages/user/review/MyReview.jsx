@@ -28,7 +28,7 @@ const MyReview = () => {
   return (
     <div className="mx-12">
       <h2 className="text-xl font-semibold mb-4">All Reviews</h2>
-      <div className="grid grid-cols-4 gap-4 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
         {reviews.length > 0
           ? reviews.map((item) => (
               <div key={item._id} className="shadow p-3">

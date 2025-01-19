@@ -33,7 +33,7 @@ const Navbar = ({ className }) => {
       <div
         className={`navbar bg-opacity-25  font-semibold flex-col justify-between items-start ${className}`}
       >
-        <div className="navbar-start">
+        <div className="navbar-start absolute top-4 left-4">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
@@ -56,16 +56,21 @@ const Navbar = ({ className }) => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               {navItems()}
+              <li>
+                <button type="button" onClick={signOutHandler}>
+                  Logout
+                </button>
+              </li>
             </ul>
           </div>
           <Link to={"/"} className="btn border-none text-text bg-transparent">
             {siteName}
           </Link>
         </div>
-        <div className="navbar-center">
+        <div className="navbar-center hidden lg:block">
           <ul className="menu menu-vertical px-1">{navItems()}</ul>
         </div>
-        <div className="navbar-end justify-start btn border-none text-text bg-transparent">
+        <div className="navbar-end justify-start btn border-none text-text bg-transparent  hidden lg:block">
           <button type="button" onClick={signOutHandler}>
             Logout
           </button>

@@ -1,5 +1,7 @@
 import Advertise from "./Advertise";
 import Carousel from "./Carousel";
+import ContactSection from "./ContactSection";
+import MeetOurTeam from "./MeetOurTeam";
 import Properties from "./Properties";
 import Reviews from "./Reviews";
 
@@ -11,6 +13,8 @@ const Home = () => {
         <Properties />
         <Reviews />
         <Advertise />
+        <ContactSection />
+        <MeetOurTeam />
       </div>
     </>
   );

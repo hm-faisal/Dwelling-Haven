@@ -11,8 +11,17 @@ const Reviews = () => {
   }, []);
   return (
     <div className=" m-12">
+      <div className="text-center mb-12">
+        <p className="text-sm text-gray-500">
+          Explore reviews that showcase our commitment to excellence.
+        </p>
+        <h2 className="text-2xl font-semibold text-gray-800">
+          Your Voice, Our Pride
+        </h2>
+        <div className="flex items-center space-x-2"></div>
+      </div>
       {reviews.length > 0 ? (
-        <div className="grid grid-cols-4 gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
           {reviews.map((item) => (
             <div key={item._id} className="card bg-base-100 shadow-xl p-4">
               <div className="flex justify-start items-center gap-8">
@@ -33,7 +42,9 @@ const Reviews = () => {
               <div className="description text-gray-500">
                 <p>{item.rating_description}</p>
               </div>
-              <div className="created mt-4">At : {item.createdTime}</div>
+              <div className="created mt-4">
+                At : {item.createdTime.split(",")[0]}
+              </div>
             </div>
           ))}
         </div>

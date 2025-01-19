@@ -23,7 +23,7 @@ const ManageReview = () => {
     <>
       <div className="m-12">
         {reviews.length > 0 ? (
-          <div className="grid grid-cols-4 gap-3 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
             {reviews.map((item) => (
               <ReviewCard reviewer={item} key={item._id} refetch={refetch} />
             ))}

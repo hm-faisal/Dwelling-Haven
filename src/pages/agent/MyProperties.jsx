@@ -29,7 +29,7 @@ const MyProperties = () => {
   return (
     <>
       {property.length > 0 ? (
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
           {property.map((item) => (
             <div className="card bg-base-100 shadow-xl" key={item._id}>
               {/* Property Image */}

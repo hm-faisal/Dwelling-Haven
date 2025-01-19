@@ -63,7 +63,7 @@ const Tab = () => {
     price();
   }, [selectedTab]);
   return (
-    <>
+    <div className="hidden md:block">
       <div className="flex bg-white text-black rounded-md flex-col p-8">
         <div className="flex justify-center items-center gap-8 flex-col">
           <div className="flex justify-center items-center gap-1">
@@ -104,7 +104,7 @@ const Tab = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

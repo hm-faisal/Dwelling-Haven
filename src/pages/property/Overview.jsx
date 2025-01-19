@@ -7,7 +7,7 @@ const Overview = ({ Bedrooms, Bathrooms, Area, Built }) => {
   return (
     <div className="shadow-md rounded-lg p-6">
       <h2 className="text-xl font-semibold mb-4">Overview</h2>
-      <div className="grid grid-cols-4 gap-4 text-center">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
         {Bedrooms && (
           <div className="flex flex-col items-center">
             <FaBed className="text-2xl text-gray-700" />

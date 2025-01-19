@@ -13,8 +13,15 @@ const Properties = () => {
 
   return (
     <div className="m-12">
+      <div className="text-center mb-12">
+        <p className="text-sm text-gray-500">Explore Our Property</p>
+        <h2 className="text-2xl font-semibold text-gray-800">
+          Check Property Picks
+        </h2>
+        <div className="flex items-center space-x-2"></div>
+      </div>
       {property.length > 0 ? (
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
           {property.map((item) => (
             <div className="card bg-base-100 shadow-xl" key={item._id}>
               {/* Property Image */}

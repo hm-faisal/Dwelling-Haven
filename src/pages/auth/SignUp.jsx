@@ -4,9 +4,11 @@ import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
+import { useState } from "react";
 
 const SignUp = () => {
   const { setUser, signUpUserWithEmailPassword, updateUser } = useAuth();
+  const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
   const axiosBase = useAxios();
@@ -19,12 +21,39 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     const { email, password, name, profile } = data;
+
+    const regex = /^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/;
+
+    if (password.length < 6) {
+      setError({ message: "Password must be at least 6 characters long." });
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setError({
+        message: "Password must include at least one uppercase letter.",
+      });
+      return;
+    }
+
+    if (!/[^a-zA-Z0-9]/.test(password)) {
+      setError({
+        message: "Password must include at least one special character.",
+      });
+      return;
+    }
+
+    if (!regex.test(password)) {
+      setError({ message: "Password does not meet the requirements." });
+      return;
+    }
+
     signUpUserWithEmailPassword(email, password)
       .then((res) => {
         updateUser(name, profile).then(() => {
           setUser(res.user);
           axiosBase
-            .post("/user", {
+            .post(`/user/`, {
               email: res.user.email,
               name: res.user.displayName,
               role: "user",
@@ -35,15 +64,13 @@ const SignUp = () => {
         navigate(location.state ? location?.state : "/");
       })
       .catch((e) => {
-        console.log(e);
+        setError(e);
         swal(
           "Sorry ! User cannot create",
           "An error Occurred, \n Please try Again, \n or \n check console for details",
           "error"
         );
       });
-
-    console.log(email, password, name, profile);
   };
 
   return (
@@ -112,6 +139,7 @@ const SignUp = () => {
             <span className="text-red-700">This field is required</span>
           )}
         </div>
+        {error && <span className="text-red-700">{error?.message}</span>}
         <div className="form-control w-full mt-4">
           <input type="submit" className="btn btn-primary" value={"Sign Up"} />
         </div>

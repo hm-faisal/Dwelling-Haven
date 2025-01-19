@@ -48,7 +48,7 @@ const PropertyDetails = () => {
       <div className=" mx-12 flex flex-col gap-8">
         <div className="flex justify-between items-center">
           <div className="">
-            <h3 className="text-3xl font-bold mb-3">
+            <h3 className="text-xl md:text-3xl font-bold mb-3">
               {property.property_name}
             </h3>
             <p className="flex items-start justify-center gap-4 text-neutral">
@@ -56,7 +56,7 @@ const PropertyDetails = () => {
             </p>
           </div>
           <div className="">
-            <h3 className="text-3xl font-bold mb-3">
+            <h3 className="text-xl md:text-3xl font-bold mb-3">
               {property.property_price_min} $ - {property.property_price_max} $
             </h3>
             <p className=" text-neutral">
@@ -73,8 +73,8 @@ const PropertyDetails = () => {
             />
           ))}
         </div>
-        <div className="grid grid-cols-12 gap-4">
-          <div className="property col-span-8 border-double ">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="property col-span-1 lg:col-span-8 border-double ">
             <div className="overview">
               <Overview
                 Bedrooms={property.property_bedrooms}
@@ -106,7 +106,7 @@ const PropertyDetails = () => {
               <Features features={property.property_features} />
             </div>
           </div>
-          <div className="agent col-span-4 border  p-6">
+          <div className="agent col-span-1 lg:col-span-4 border  p-6">
             <div className="flex justify-start items-center gap-8">
               <img
                 src={property.property_agent_img}

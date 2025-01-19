@@ -36,7 +36,7 @@ const RequestedProperties = () => {
   return (
     <>
       {property.length > 0 ? (
-        <div className="overflow-x-auto">
+        <div className="overflow-auto">
           <table className="table">
             {/* head */}
             <thead>

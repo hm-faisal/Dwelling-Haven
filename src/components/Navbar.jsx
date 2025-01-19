@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router";
 import useDevice from "../hooks/useDevice";
 import useAuth from "../hooks/useAuth";
+import logo from "../assets/logo.webp";
 
 const Navbar = () => {
   const { user, signOutUser, userRole } = useAuth();
@@ -67,28 +68,30 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to={"/"} className="btn border-none text-text bg-transparent">
-            {siteName}
+            <img src={logo} alt="logo" className="w-12 h-12" /> {siteName}
           </Link>
-          <ul className="menu menu-horizontal px-1">
-            {navItems()}
-            {user && (
-              <li>
-                <NavLink
-                  to={
-                    userRole === "admin"
-                      ? "/admin/profile"
-                      : userRole === "agent"
-                      ? "/agent/profile"
-                      : "/user/profile"
-                  }
-                >
-                  Dashboard
-                </NavLink>
-              </li>
-            )}
-          </ul>
+          <div className=" hidden lg:block">
+            <ul className="menu menu-horizontal px-1">
+              {navItems()}
+              {user && (
+                <li>
+                  <NavLink
+                    to={
+                      userRole === "admin"
+                        ? "/admin/profile"
+                        : userRole === "agent"
+                        ? "/agent/profile"
+                        : "/user/profile"
+                    }
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+              )}
+            </ul>
+          </div>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end justify-start md:justify-end">
           {user ? (
             <>
               <img

@@ -77,7 +77,7 @@ const BuyProperty = () => {
       <h2 className="text-5xl font-bold">Make a Offer</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-2 gap-6 my-8"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8"
       >
         {/* Property buyer Username */}
         <div className="form-control w-full">

@@ -15,7 +15,7 @@ const Details = ({
   return (
     <>
       <h2 className="text-xl font-semibold mb-6">Details</h2>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex justify-between mb-2">
           <span className=" font-semibold">Property Name:</span>
           <span className=" text-neutral">{name}</span>

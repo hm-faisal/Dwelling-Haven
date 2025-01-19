@@ -54,7 +54,7 @@ const ManageUsers = () => {
   if (isLoading) return <Loading />;
   return (
     <>
-      <div className="overflow-x-auto">
+      <div className="overflow-auto">
         <table className="table">
           {/* head */}
           <thead>

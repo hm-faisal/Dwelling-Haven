@@ -28,10 +28,10 @@ const HomeCarousel = () => {
         ))}
       </Carousel>
       <div className="absolute top-0 left-0 h-full w-full flex justify-center items-center flex-col gap-4">
-        <h2 className="text-white text-6xl font-bold">
+        <h2 className="text-white text-3xl md:text-6xl font-bold">
           Find Your Perfect Home
         </h2>
-        <p className="text-white text-xl text-center max-w-screen-md">
+        <p className="text-white text-base md:text-xl text-center max-w-screen-md">
           Discover a place you’ll love to call home – search through a wide
           range of properties tailored to your needs and preferences. Explore
           spaces perfect for living, working, or relaxing.

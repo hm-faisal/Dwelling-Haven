@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router";
 import swal from "sweetalert";
 import SocialLogin from "./SocialLogin";
 import useAuth from "../../hooks/useAuth";
+import { useState } from "react";
 
 const SignIn = () => {
   const { signInUserWithEmailPassword, setUser } = useAuth();
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const {
     register,
@@ -21,11 +23,12 @@ const SignIn = () => {
         navigate(location.state ? location?.state : "/");
         swal("Sign In ", "successfully Sign In", "success");
       })
-      .catch(() =>
-        swal("Sign In Failed", "Your Username or Password may wrong", "error")
-      );
+      .catch((e) => {
+        setError(e);
+      });
   };
 
+  console.log();
   const forgotPassword = () =>
     swal(
       "Forgot Password",
@@ -74,6 +77,7 @@ const SignIn = () => {
             >
               Forgot Your Password ?
             </button>
+            {error && <span className="text-red-700">{error.message}</span>}
           </div>
           <div className="form-control w-full mt-4">
             <input

@@ -31,7 +31,7 @@ const MySold = () => {
             Total Amount Sold:{" "}
             <span className="font-bold opacity-100">{totalPrice}</span>
           </p>
-          <div className="overflow-y-auto">
+          <div className="overflow-auto">
             <table className="table">
               {/* head */}
               <thead>

@@ -62,7 +62,7 @@ const UpdateProperties = () => {
         <h2 className="text-5xl font-bold">Update Your Property</h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="grid grid-cols-2 gap-6 my-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8"
         >
           {/* Property Agent */}
           <div className="form-control w-full">
