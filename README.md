@@ -63,14 +63,4 @@ To run the project locally, follow these steps:
 - **Styling**: CSS Modules, Tailwind CSS (if applicable)
 - **Hosting**: Vercel
 
-## Contributing
-
-We welcome contributions! Please feel free to submit issues or pull requests to help improve the platform.
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
----
-
 Start exploring your dream home today with Dwelling Haven!
