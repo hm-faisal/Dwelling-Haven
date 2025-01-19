@@ -3,10 +3,10 @@ import Navbar from "../pages/agent/Navbar";
 import useAuth from "../hooks/useAuth";
 
 const AgentLayout = () => {
-  const { loading, userRole } = useAuth();
+  const { loading, userRole, roleLoading } = useAuth();
   const location = useLocation();
 
-  if (loading) {
+  if (loading || roleLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <span className="loading loading-dots loading-lg"></span>

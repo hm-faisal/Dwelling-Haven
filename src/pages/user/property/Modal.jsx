@@ -11,7 +11,7 @@ const Modal = ({ isOpen, onClose, title, children, onConfirm }) => {
         </div>
         <div className="p-4">{children}</div>
         <div className="flex justify-end gap-2 border-t p-4">
-          <button onClick={onClose}></button>
+          <button onClick={onClose}>Cancel</button>
           {onConfirm && <button onClick={onConfirm}></button>}
         </div>
       </div>

@@ -15,7 +15,6 @@ import {
 import app from "./../../firebase/firebase.config";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import Loading from "../../components/Loading";
 
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
@@ -49,13 +48,16 @@ const AuthProvider = ({ children }) => {
       }
       setLoading(false);
     });
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   // Add user role
 
-  const { _data, isLoading } = useQuery({
+  const { _data, isLoading: roleLoading } = useQuery({
     queryKey: ["users", user],
+    enabled: Boolean(user?.email),
     queryFn: async () => {
       setLoading(true);
       const { data } = await axiosBase.get(`/users/${user?.email}`);
@@ -65,7 +67,6 @@ const AuthProvider = ({ children }) => {
     },
   });
 
-  if (isLoading) return <Loading />;
   // Register New user with email password
 
   const signUpUserWithEmailPassword = (email, password) => {
@@ -124,6 +125,7 @@ const AuthProvider = ({ children }) => {
     googleSignIn,
     signOutUser,
     deleteCurrentUser,
+    roleLoading,
   };
   return (
     <>

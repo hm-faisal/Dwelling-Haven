@@ -2,15 +2,16 @@ import useAxios from "../../hooks/useAxios";
 import { Link } from "react-router";
 import { useEffect, useState } from "react";
 
-const Properties = () => {
+const Advertise = () => {
   const axiosBase = useAxios();
   const [property, setProperty] = useState([]);
   useEffect(() => {
-    axiosBase("/my-properties?page=home")
+    axiosBase("/all-advertisement")
       .then((res) => setProperty(res.data))
       .catch((e) => console.log(e));
   }, []);
 
+  console.log(property);
   return (
     <div className="m-12">
       {property.length > 0 ? (
@@ -31,41 +32,33 @@ const Properties = () => {
 
               <div className="card-body">
                 {/* Property Title */}
-                <h2 className="card-title text-lg font-bold">
-                  {item.property_name}
-                </h2>
+                <h2 className="card-title text-lg font-bold">{item.title}</h2>
 
                 {/* Property Location */}
                 <p className="text-sm text-gray-500">
-                  Location: {item.property_location}
+                  Location: {item.location}
                 </p>
 
                 {/* Agent Info */}
                 <div className="flex items-center mt-2">
                   <img
-                    src={item.agent_profile}
+                    src={item.agentProfile}
                     alt="Agent"
                     className="w-10 h-10 rounded-full mr-3"
                   />
-                  <span className="font-medium">{item.property_agent}</span>
+                  <span className="font-medium">{item.agent}</span>
                 </div>
-
-                {/* Verification Status */}
-                <p className="mt-2 text-sm font-bold">
-                  Status:{item.verify_status}
-                </p>
 
                 {/* Price Range */}
                 <p className="mt-2 text-sm text-gray-700">
-                  Price Range: ${item.property_price_min} - $
-                  {item.property_price_max}
+                  Price Range: ${item.priceMin} - ${item.priceMax}
                 </p>
 
                 {/* Action Buttons */}
                 <div className="card-actions mt-4 flex justify-end">
                   <Link
                     className="btn btn-primary btn-sm"
-                    to={`/properties/${item._id}`}
+                    to={`/properties/${item.propertyId}`}
                   >
                     Details
                   </Link>
@@ -83,4 +76,4 @@ const Properties = () => {
   );
 };
 
-export default Properties;
+export default Advertise;

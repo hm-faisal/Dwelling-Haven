@@ -1,3 +1,4 @@
+import Advertise from "./Advertise";
 import Carousel from "./Carousel";
 import Properties from "./Properties";
 import Reviews from "./Reviews";
@@ -9,6 +10,7 @@ const Home = () => {
         <Carousel />
         <Properties />
         <Reviews />
+        <Advertise />
       </div>
     </>
   );

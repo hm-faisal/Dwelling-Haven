@@ -1,12 +1,14 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import useDevice from "../../hooks/useDevice";
 import useAuth from "../../hooks/useAuth";
 
 const Navbar = ({ className }) => {
+  const navigate = useNavigate();
   const { siteName } = useDevice();
   const { signOutUser } = useAuth();
   const signOutHandler = () => {
     signOutUser();
+    navigate("/");
   };
   const navItems = () => {
     const navItemsClassNames = "";

@@ -3,10 +3,10 @@ import Navbar from "../pages/user/Navbar";
 import useAuth from "../hooks/useAuth";
 
 const UserLayout = () => {
-  const { loading, userRole } = useAuth();
+  const { loading, userRole, roleLoading } = useAuth();
   const location = useLocation();
 
-  if (loading) {
+  if (loading || roleLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <span className="loading loading-dots loading-lg"></span>
@@ -14,7 +14,7 @@ const UserLayout = () => {
     );
   }
 
-  if (userRole === "user") {
+  if (userRole && userRole === "user") {
     return (
       <div className="grid grid-cols-12 h-[100vh] grid-rows-12">
         <Navbar className="col-span-2 row-span-12 border-r-2 border" />

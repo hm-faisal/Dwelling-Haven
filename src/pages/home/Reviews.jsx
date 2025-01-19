@@ -1,17 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
-import Loading from "../../components/Loading";
+import { useEffect, useState } from "react";
 
 const Reviews = () => {
   const axiosBase = useAxios();
-  const { data: reviews = [], isLoading } = useQuery({
-    queryKey: ["property"],
-    queryFn: async () => {
-      const { data } = await axiosBase.get(`/reviews`);
-      return data;
-    },
-  });
-  if (isLoading) return <Loading />;
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    axiosBase("/reviews")
+      .then((res) => setReviews(res.data))
+      .catch((e) => console.log(e));
+  }, []);
   return (
     <div className=" m-12">
       {reviews.length > 0 ? (
