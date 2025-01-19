@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
-import useAxios from "../../hooks/useAxios";
 import Loading from "../../components/Loading";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { swal } from "sweetalert";
+import swal from "sweetalert";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const BuyProperty = () => {
   const { id } = useParams();
   const { user } = useAuth();
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const { data: property = {}, isLoading } = useQuery({
     queryKey: ["property"],
     queryFn: async () => {

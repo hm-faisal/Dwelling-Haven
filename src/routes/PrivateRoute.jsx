@@ -14,7 +14,7 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  if (userRole === "user") {
+  if (userRole) {
     return children;
   }
   return <Navigate state={location?.pathname} to={"/sign-in"} />;

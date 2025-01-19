@@ -3,7 +3,6 @@ import Layout from "../layout/Layout";
 import Home from "../pages/home/Home";
 import SignIn from "../pages/auth/SignIn";
 import SignUp from "../pages/auth/SignUp";
-import Test from "../pages/test/Test";
 import AdminLayout from "../layout/AdminLayout";
 import Admin from "../pages/admin/Admin";
 import ManageProperties from "../pages/admin/manageProperties/ManageProperties";
@@ -25,6 +24,8 @@ import PropertyDetails from "../pages/property/PropertyDetails";
 import BuyProperty from "../pages/buyProperty/BuyProperty";
 import AllProperties from "../pages/allProperties/AllProperties";
 import PrivateRoute from "./PrivateRoute";
+import NotFound from "../pages/404/NotFound";
+import AdvertiseProperty from "../pages/admin/advertiseProperty/AdvertiseProperty";
 
 const AllRoutes = () => {
   return (
@@ -55,9 +56,6 @@ const AllRoutes = () => {
         <Route path="sign-in" element={<SignIn />} />
 
         <Route path="sign-up" element={<SignUp />} />
-
-        {/* Testing Page  */}
-        <Route path="test" element={<Test />} />
       </Route>
 
       {/* User Route (private)  */}
@@ -97,10 +95,15 @@ const AllRoutes = () => {
 
         <Route path="manage-properties" element={<ManageProperties />} />
 
+        <Route path="advertise-property" element={<AdvertiseProperty />} />
+
         <Route path="manage-users" element={<ManageUsers />} />
 
         <Route path="manage-reviews" element={<ManageReview />} />
       </Route>
+
+      {/* 404 Page  */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

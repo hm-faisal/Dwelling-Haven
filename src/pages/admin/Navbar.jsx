@@ -12,6 +12,7 @@ const Navbar = ({ className }) => {
     const navItemsClassNames = "";
     const items = {
       "/admin/profile": "Admin Profile",
+      "/admin/advertise-property": "Advertise property",
       "/admin/manage-properties": "Manage Properties",
       "/admin/manage-users": "Manage Users",
       "/admin/manage-reviews": "Manage reviews",

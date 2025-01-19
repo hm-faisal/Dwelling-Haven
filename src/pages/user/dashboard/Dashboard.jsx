@@ -2,7 +2,6 @@ import useAuth from "../../../hooks/useAuth";
 
 const Dashboard = () => {
   const { user } = useAuth();
-  console.log(user);
   return (
     <div className="flex justify-center items-center flex-col gap-8 h-full">
       <img

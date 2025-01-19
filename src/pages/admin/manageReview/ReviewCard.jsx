@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import useAxios from "../../../hooks/useAxios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 const ReviewCard = ({ refetch, reviewer }) => {
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const onDelete = (id) => {
     axiosBase
       .delete(`/delete-review/${id}`)

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
-import useAxios from "../../../hooks/useAxios";
 import Loading from "../../../components/Loading";
 import PropertyCard from "./PropertyCard";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const PropertyBought = () => {
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const { user } = useAuth();
   const {
     data: property = [],

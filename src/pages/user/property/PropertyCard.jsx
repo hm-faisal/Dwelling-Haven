@@ -2,8 +2,13 @@ import PropTypes from "prop-types";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
+import useAuth from "../../../hooks/useAuth";
+import swal from "sweetalert";
+import { useState } from "react";
+import Modal from "./Modal";
 
 const PropertyCard = ({ property, refetch }) => {
+  const { userRole } = useAuth();
   const {
     title,
     images,
@@ -22,33 +27,17 @@ const PropertyCard = ({ property, refetch }) => {
     import.meta.env.VITE_PAYMENT_PUBLISHABLE_KEY
   );
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleConfirmAction = () => {
+    console.log("Confirmed!");
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white border border-gray-200">
-      <dialog id="my_modal_3" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg">Pay and get Your Property </h3>
-          <p className="py-4 my-4 ">
-            Total Applicable Amount :{" "}
-            <span className="font-bold">{amount}</span> $
-          </p>
-          <Elements stripe={stripePromise}>
-            <CheckoutForm
-              amount={amount}
-              agentEmail={agentEmail}
-              customerEmail={customer_email}
-              propertyId={propertyId}
-              refetch={refetch}
-            />
-          </Elements>
-        </div>
-      </dialog>
-
       {/* Property Image */}
       <img
         className="w-full h-48 object-cover"
@@ -73,6 +62,39 @@ const PropertyCard = ({ property, refetch }) => {
         </p>
 
         {/* Status */}
+        {status === "Available" && (
+          <div className="p-4">
+            <button
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              onClick={() => {
+                const id = _id;
+                localStorage.setItem("propertyId", id);
+                userRole === "user"
+                  ? handleOpenModal()
+                  : swal("Error", "Only user can Buy Property", "warning");
+              }}
+            >
+              Pay
+            </button>
+
+            <Modal
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+              title="Confirm Payment"
+              onConfirm={handleConfirmAction}
+            >
+              <Elements stripe={stripePromise}>
+                <CheckoutForm
+                  amount={amount}
+                  agentEmail={agentEmail}
+                  customerEmail={customer_email}
+                  propertyId={propertyId}
+                  refetch={refetch}
+                />
+              </Elements>
+            </Modal>
+          </div>
+        )}
         <div className="flex justify-between items-center">
           <p
             className={`text-sm font-medium px-2 py-1 inline-block rounded-md ${
@@ -87,16 +109,18 @@ const PropertyCard = ({ property, refetch }) => {
           </p>
           {status === "Available" && (
             <>
-              <button
+              {/* <button
                 className="btn"
                 onClick={() => {
                   const id = _id;
                   localStorage.setItem("propertyId", id);
-                  document.getElementById("my_modal_3").showModal();
+                  userRole === "user"
+                    ? document.getElementById("my_modal_3").showModal()
+                    : swal("Error", "Only user can Buy Property", "warning");
                 }}
               >
                 pay
-              </button>
+              </button> */}
             </>
           )}
         </div>

@@ -1,16 +1,15 @@
 import PropTypes from "prop-types";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import useAxios from "../../../hooks/useAxios";
 
 import "./common.css";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import { swal } from "sweetalert";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const CheckoutForm = ({ amount, refetch }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const navigate = useNavigate();
   const [clientSecret, setClientSecret] = useState("");
 
@@ -31,25 +30,18 @@ const CheckoutForm = ({ amount, refetch }) => {
   };
 
   const handleSubmit = async (event) => {
-    // Block native form submission.
     event.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
       return;
     }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
     const card = elements.getElement(CardElement);
 
     if (card == null) {
       return;
     }
 
-    // Use your card Element with other Stripe.js APIs
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
@@ -75,13 +67,10 @@ const CheckoutForm = ({ amount, refetch }) => {
             status: "Bought",
             id: paymentIntent.id,
           })
-          .then(() => {
-            navigate("/user/property-bought");
-            swal(
-              "Successful Payment",
-              "Your Payment successfully save our database",
-              "success"
-            );
+          .then((res) => {
+            if (res.data) {
+              navigate("/user/property-bought");
+            }
             refetch();
           });
       } catch (e) {
@@ -108,13 +97,9 @@ const CheckoutForm = ({ amount, refetch }) => {
           },
         }}
       />
-      <button
-        type="submit"
-        disabled={!stripe || !clientSecret}
-        className="btn btn-primary"
-      >
-        {`Pay ${amount} $`}
-      </button>
+      <label htmlFor="Submit" className="font-bold">
+        You must press enter to confirm your payment
+      </label>
     </form>
   );
 };

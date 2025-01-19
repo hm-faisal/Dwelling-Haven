@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
-import useAxios from "../../../hooks/useAxios";
 import Loading from "../../../components/Loading";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyReview = () => {
-  const axiosBase = useAxios();
+  const axiosBase = useAxiosSecure();
   const { user } = useAuth();
   const {
     data: reviews = [],

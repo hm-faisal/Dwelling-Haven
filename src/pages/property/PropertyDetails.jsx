@@ -8,6 +8,7 @@ import Features from "./Features";
 import Details from "./Details";
 import Reviews from "./Reviews";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import swal from "sweetalert";
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -31,7 +32,15 @@ const PropertyDetails = () => {
     };
     axiosBase
       .post(`/add-wishlist`, wishlistData)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        if (res.data) {
+          swal(
+            "successfully added to wishlist",
+            "Property Successfully added to your wishlist",
+            "success"
+          );
+        }
+      })
       .catch((e) => console.log(e));
   };
   return (

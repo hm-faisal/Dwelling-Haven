@@ -14,9 +14,7 @@ const MyProperties = () => {
   } = useQuery({
     queryKey: ["property", user],
     queryFn: async () => {
-      const { data } = await axiosBase.get(
-        `/my-properties?email=${user?.email}`
-      );
+      const { data } = await axiosBase.get(`/my-properties/${user?.email}`);
       return data;
     },
   });
