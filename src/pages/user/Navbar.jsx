@@ -33,7 +33,7 @@ const Navbar = ({ className }) => {
       <div
         className={`navbar bg-opacity-25  font-semibold flex-col justify-between items-start ${className}`}
       >
-        <div className="navbar-start absolute top-4 left-4">
+        <div className="navbar-start absolute top-4 left-4 md:relative">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg

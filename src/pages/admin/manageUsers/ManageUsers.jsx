@@ -111,6 +111,7 @@ const ManageUsers = () => {
                   {item.status !== "fraud" ? (
                     <button
                       className="btn btn-primary btn-xs"
+                      disabled={item.role === "agent" ? false : true}
                       onClick={() => makeStatusFraud(item._id)}
                     >
                       Mark as Fraud
