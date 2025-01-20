@@ -22,9 +22,9 @@ const RequestedProperties = () => {
 
   if (isLoading) return <Loading />;
 
-  const verifyProperty = (id, status) => {
+  const verifyProperty = (id, status, user) => {
     axiosBase
-      .patch(`/update-offer-status/${id}`, {
+      .patch(`/update-offer-status/${id}/${user}`, {
         update_status: status,
       })
       .then((res) => {
@@ -70,33 +70,38 @@ const RequestedProperties = () => {
                   </td>
                   <td>{item.price}</td>
                   <th className="space-x-1">
-                    {item.status === "Verified" ? (
-                      <button
-                        className="btn btn-primary btn-xs"
-                        onClick={() => verifyProperty(item._id, "accept")}
-                        disabled
-                      >
-                        Accept
-                      </button>
-                    ) : item.verify_status === "Rejected" ? (
-                      <button
-                        className="btn btn-secondary btn-xs"
-                        onClick={() => verifyProperty(item._id, "reject")}
-                        disabled
-                      >
-                        Reject
-                      </button>
+                    {item.status !== "pending" ? (
+                      <>
+                        <button className="btn btn-primary btn-xs" disabled>
+                          Accept
+                        </button>
+                        <button className="btn btn-secondary btn-xs" disabled>
+                          Reject
+                        </button>
+                      </>
                     ) : (
                       <>
                         <button
                           className="btn btn-primary btn-xs"
-                          onClick={() => verifyProperty(item._id, "accept")}
+                          onClick={() =>
+                            verifyProperty(
+                              item._id,
+                              "accept",
+                              item.customer_email
+                            )
+                          }
                         >
                           Accept
                         </button>
                         <button
                           className="btn btn-secondary btn-xs"
-                          onClick={() => verifyProperty(item._id, "reject")}
+                          onClick={() =>
+                            verifyProperty(
+                              item._id,
+                              "reject",
+                              item.customer_email
+                            )
+                          }
                         >
                           Reject
                         </button>
