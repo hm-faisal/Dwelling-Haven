@@ -1,9 +1,12 @@
 import useAuth from "../../hooks/useAuth";
+import useHelmet from "../../hooks/useHelmet";
 
 const Agent = () => {
   const { user, userRole } = useAuth();
+  const helmet = useHelmet("Agent Profile");
   return (
     <div className="flex justify-center items-center flex-col gap-8 h-full">
+      {helmet}
       <img
         src={user?.photoURL}
         alt="Profile"

@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../components/Loading";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useHelmet from "../../../hooks/useHelmet";
 
 const ManageUsers = () => {
   const { deleteCurrentUser } = useAuth();
+  const helmet = useHelmet("Manage Users");
   const axiosBase = useAxiosSecure();
   const {
     data: users = [],
@@ -54,6 +56,7 @@ const ManageUsers = () => {
   if (isLoading) return <Loading />;
   return (
     <>
+      {helmet}
       <div className="overflow-auto">
         <table className="table">
           {/* head */}

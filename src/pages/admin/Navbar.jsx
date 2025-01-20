@@ -70,8 +70,8 @@ const Navbar = ({ className }) => {
         <div className="navbar-center hidden lg:block">
           <ul className="menu menu-vertical px-1">{navItems()}</ul>
         </div>
-        <div className="navbar-end justify-start btn border-none text-text bg-transparent  hidden lg:block">
-          <button type="button" onClick={signOutHandler}>
+        <div className="navbar-end justify-start   hidden lg:block">
+          <button type="button" className="btn" onClick={signOutHandler}>
             Logout
           </button>
         </div>

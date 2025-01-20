@@ -4,9 +4,11 @@ import Loading from "../../components/Loading";
 import { Link } from "react-router";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
+import useHelmet from "../../hooks/useHelmet";
 
 const AllProperties = () => {
   const axiosBase = useAxios();
+  const helmet = useHelmet("All Properties");
   const [sort, setSort] = useState("default");
   const [search, setSearch] = useState("");
   const { data: property = [], isLoading } = useQuery({
@@ -29,6 +31,7 @@ const AllProperties = () => {
 
   return (
     <div className="m-12 mt-24">
+      {helmet}
       <div className="searchbox my-4 flex justify-between">
         <form onSubmit={onSearch}>
           <label className="input input-bordered flex items-center gap-2">

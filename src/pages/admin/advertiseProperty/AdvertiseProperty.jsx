@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../../components/Loading";
 import swal from "sweetalert";
+import useHelmet from "../../../hooks/useHelmet";
 const AdvertiseProperty = () => {
   const axiosBase = useAxiosSecure();
+  const helmet = useHelmet("Advertise Property");
   const { data: property = [], isLoading } = useQuery({
     queryKey: ["property"],
     queryFn: async () => {
@@ -31,6 +33,7 @@ const AdvertiseProperty = () => {
   return (
     <>
       <div className="overflow-auto">
+        {helmet}
         <table className="table">
           {/* head */}
           <thead>

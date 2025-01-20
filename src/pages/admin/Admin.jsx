@@ -1,9 +1,11 @@
 import useAuth from "../../hooks/useAuth";
+import useHelmet from "../../hooks/useHelmet";
 
 const Admin = () => {
   const { user, userRole } = useAuth();
   return (
     <div className="flex justify-center items-center flex-col gap-8 h-full">
+      {useHelmet("Admin")}
       <img
         src={user?.photoURL}
         alt="Profile"

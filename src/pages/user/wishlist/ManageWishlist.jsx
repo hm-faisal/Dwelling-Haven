@@ -3,9 +3,11 @@ import useAuth from "../../../hooks/useAuth";
 import Loading from "../../../components/Loading";
 import { Link } from "react-router";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useHelmet from "../../../hooks/useHelmet";
 
 const ManageWishlist = () => {
   const axiosBase = useAxiosSecure();
+  const helmet = useHelmet("Manage Wishlist");
   const { user } = useAuth();
   const {
     data: property = [],
@@ -31,6 +33,7 @@ const ManageWishlist = () => {
   };
   return (
     <>
+      {helmet}
       <div>
         {property.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">

@@ -4,9 +4,11 @@ import swal from "sweetalert";
 import SocialLogin from "./SocialLogin";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
+import useHelmet from "../../hooks/useHelmet";
 
 const SignIn = () => {
   const { signInUserWithEmailPassword, setUser } = useAuth();
+  const helmet = useHelmet("Sign In");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const {
@@ -28,7 +30,6 @@ const SignIn = () => {
       });
   };
 
-  console.log();
   const forgotPassword = () =>
     swal(
       "Forgot Password",
@@ -38,6 +39,7 @@ const SignIn = () => {
 
   return (
     <>
+      {helmet}
       <div className="pt-24">
         <form
           onSubmit={handleSubmit(onSubmit)}

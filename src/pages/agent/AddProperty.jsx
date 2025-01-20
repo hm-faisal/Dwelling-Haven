@@ -6,9 +6,11 @@ import useAuth from "../../hooks/useAuth";
 import swal from "sweetalert";
 import { useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useHelmet from "../../hooks/useHelmet";
 
 const AddProperty = () => {
   const { user } = useAuth();
+  const helmet = useHelmet("Add Property");
   const axiosBase = useAxiosSecure();
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
@@ -46,6 +48,7 @@ const AddProperty = () => {
 
   return (
     <div className="mx-12 mb-12 ">
+      {helmet}
       <h2 className="text-5xl font-bold">Add a Property</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}

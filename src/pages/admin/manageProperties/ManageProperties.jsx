@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../components/Loading";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useHelmet from "../../../hooks/useHelmet";
 
 const ManageProperties = () => {
   const axiosBase = useAxiosSecure();
+  const helmet = useHelmet("Manage Property");
   const {
     data: property = [],
     isLoading,
@@ -28,6 +30,7 @@ const ManageProperties = () => {
   if (isLoading) return <Loading />;
   return (
     <>
+      {helmet}
       <div className="overflow-auto">
         <table className="table">
           {/* head */}

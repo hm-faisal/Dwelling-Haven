@@ -9,9 +9,11 @@ import Details from "./Details";
 import Reviews from "./Reviews";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import swal from "sweetalert";
+import useHelmet from "../../hooks/useHelmet";
 
 const PropertyDetails = () => {
   const { id } = useParams();
+  const helmet = useHelmet("Property Details");
   const axiosBase = useAxiosSecure();
   const { user } = useAuth();
   const { data: property = [], isLoading } = useQuery({
@@ -45,6 +47,7 @@ const PropertyDetails = () => {
   };
   return (
     <div className="my-24 w-full">
+      {helmet}
       <div className=" mx-12 flex flex-col gap-8">
         <div className="flex justify-between items-center">
           <div className="">

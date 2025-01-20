@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useHelmet from "../../hooks/useHelmet";
 
 const RequestedProperties = () => {
   const axiosBase = useAxiosSecure();
+  const helmet = useHelmet("Requested Properties");
   const { user } = useAuth();
   const {
     data: property = [],
@@ -35,6 +37,7 @@ const RequestedProperties = () => {
 
   return (
     <>
+      {helmet}
       {property.length > 0 ? (
         <div className="overflow-auto">
           <table className="table">

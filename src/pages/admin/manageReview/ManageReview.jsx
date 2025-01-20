@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../components/Loading";
 import ReviewCard from "./ReviewCard";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useHelmet from "../../../hooks/useHelmet";
 
 const ManageReview = () => {
   const axiosBase = useAxiosSecure();
+  const helmet = useHelmet("Manage Reviews");
   const {
     data: reviews = [],
     isLoading,
@@ -21,6 +23,7 @@ const ManageReview = () => {
 
   return (
     <>
+      {helmet}
       <div className="m-12">
         {reviews.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">

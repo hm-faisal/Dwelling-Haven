@@ -8,10 +8,12 @@ import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import swal from "sweetalert";
+import useHelmet from "../../hooks/useHelmet";
 
 const UpdateProperties = () => {
   const { id } = useParams();
   const axiosBase = useAxiosSecure();
+  const helmet = useHelmet("Update Properties");
   const { user } = useAuth();
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
@@ -58,6 +60,7 @@ const UpdateProperties = () => {
 
   return (
     <>
+      {helmet}
       <div className="mx-12 mb-12 ">
         <h2 className="text-5xl font-bold">Update Your Property</h2>
         <form

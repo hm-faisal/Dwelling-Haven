@@ -8,9 +8,11 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import swal from "sweetalert";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useHelmet from "../../hooks/useHelmet";
 
 const BuyProperty = () => {
   const { id } = useParams();
+  const helmet = useHelmet("Buy Properties");
   const { user } = useAuth();
   const axiosBase = useAxiosSecure();
   const { data: property = {}, isLoading } = useQuery({
@@ -73,6 +75,7 @@ const BuyProperty = () => {
 
   return (
     <div className="mx-12 mb-12 ">
+      {helmet}
       <ToastContainer />
       <h2 className="text-5xl font-bold">Make a Offer</h2>
       <form

@@ -5,9 +5,11 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import { useState } from "react";
+import useHelmet from "../../hooks/useHelmet";
 
 const SignUp = () => {
   const { setUser, signUpUserWithEmailPassword, updateUser } = useAuth();
+  const helmet = useHelmet("Sign Up");
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -75,6 +77,7 @@ const SignUp = () => {
 
   return (
     <div className="pt-24">
+      {helmet}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex justify-center items-center gap-4 flex-col max-w-sm mx-auto"

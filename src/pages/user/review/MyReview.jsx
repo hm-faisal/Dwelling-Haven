@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import Loading from "../../../components/Loading";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useHelmet from "../../../hooks/useHelmet";
 
 const MyReview = () => {
   const axiosBase = useAxiosSecure();
+  const helmet = useHelmet("My Reviews");
   const { user } = useAuth();
   const {
     data: reviews = [],
@@ -27,6 +29,7 @@ const MyReview = () => {
   if (isLoading) return <Loading />;
   return (
     <div className="mx-12">
+      {helmet}
       <h2 className="text-xl font-semibold mb-4">All Reviews</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
         {reviews.length > 0

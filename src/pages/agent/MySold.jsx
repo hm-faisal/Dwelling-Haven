@@ -3,9 +3,11 @@ import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useState } from "react";
+import useHelmet from "../../hooks/useHelmet";
 
 const MySold = () => {
   const axiosBase = useAxiosSecure();
+  const helmet = useHelmet("My Sold Properties");
   const [totalPrice, setTotalPrice] = useState(0);
   const { user } = useAuth();
   const { data: property = [], isLoading } = useQuery({
@@ -25,6 +27,7 @@ const MySold = () => {
 
   return (
     <>
+      {helmet}
       {property.length > 0 ? (
         <>
           <p className="text-sm opacity-50 flex items-center  gap-3">
