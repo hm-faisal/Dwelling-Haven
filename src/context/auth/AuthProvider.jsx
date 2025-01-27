@@ -14,13 +14,13 @@ import {
 } from "firebase/auth";
 import app from "./../../firebase/firebase.config";
 import useAxios from "../../hooks/useAxios";
-import { useQuery } from "@tanstack/react-query";
 
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
-  const [userRole, setUserRole] = useState("user");
+  const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [roleLoading, setRoleLoading] = useState(true);
   const axiosBase = useAxios();
 
   // authentication state observer and get user data
@@ -41,6 +41,12 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
           })
           .catch((e) => console.log(e));
+
+        // Get user role
+        axiosBase.get(`/users/${user?.email}`).then((res) => {
+          setUserRole(res.data.role);
+          setRoleLoading(false);
+        });
       } else {
         localStorage.removeItem("access-token");
         setUser(null);
@@ -53,19 +59,7 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  // Add user role
-
-  const { _data, isLoading: roleLoading } = useQuery({
-    queryKey: ["users", user],
-    enabled: Boolean(user?.email),
-    queryFn: async () => {
-      setLoading(true);
-      const { data } = await axiosBase.get(`/users/${user?.email}`);
-      setUserRole(data.role);
-      setLoading(false);
-      return data;
-    },
-  });
+  console.log(roleLoading, userRole, user);
 
   // Register New user with email password
 

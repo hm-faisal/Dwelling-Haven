@@ -192,12 +192,12 @@ const AddProperty = () => {
         {/* Property Price min*/}
         <div className="form-control w-full">
           <label className="label font-bold">
-            <span className="label-text">Property Price min</span>
+            <span className="label-text">Property Price min ($)</span>
           </label>
           <input
             type="number"
             min={0}
-            placeholder="2020"
+            placeholder="100000"
             className="input input-bordered"
             {...register("property_price_min", { required: true })}
           />
@@ -208,12 +208,12 @@ const AddProperty = () => {
         {/* Property Price max*/}
         <div className="form-control w-full">
           <label className="label font-bold">
-            <span className="label-text">Property Price max</span>
+            <span className="label-text">Property Price max ($)</span>
           </label>
           <input
             type="number"
             min={0}
-            placeholder="2020"
+            placeholder="200000"
             className="input input-bordered"
             {...register("property_price_max", { required: true })}
           />
