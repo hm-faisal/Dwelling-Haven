@@ -6,11 +6,6 @@ Welcome to Dwelling Haven, a modern platform designed to streamline the search f
 
 Live Site URL : https://dwellinghaven.vercel.app/
 
-## admin Info
-
-Email: admin@example.com
-Password: 123aA#
-
 ## Features
 
 - **Stunning Visuals**: A clean and modern interface designed to captivate and engage users.
@@ -60,7 +55,7 @@ To run the project locally, follow these steps:
 ## Technologies Used
 
 - **Frontend**: React, Vite
-- **Styling**: CSS Modules, Tailwind CSS (if applicable)
+- **Styling**: Tailwind CSS
 - **Hosting**: Vercel
 
 Start exploring your dream home today with Dwelling Haven!
