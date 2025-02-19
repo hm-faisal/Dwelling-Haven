@@ -1,10 +1,11 @@
 import Advertise from "./Advertise";
 import Carousel from "./Carousel";
-import ContactSection from "./ContactSection";
 import MeetOurTeam from "./MeetOurTeam";
 import Properties from "./Properties";
 import Reviews from "./Reviews";
 import useHelmet from "../../hooks/useHelmet";
+import ContactSection from "../contact/ContactSection";
+import Testimonials from "./Testimonials";
 
 const Home = () => {
   const helmet = useHelmet("Home");
@@ -18,6 +19,7 @@ const Home = () => {
         <Advertise />
         <ContactSection />
         <MeetOurTeam />
+        <Testimonials />
       </div>
     </>
   );
