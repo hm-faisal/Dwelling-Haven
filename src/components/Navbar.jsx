@@ -14,6 +14,7 @@ const Navbar = () => {
     const items = {
       "/": "Home",
       "/all-properties": "All properties",
+      "/contact": "Contact",
     };
     return Object.entries(items).map((entry, i) => (
       <li key={i}>
@@ -26,7 +27,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-opacity-25 fixed z-10 font-semibold">
+      <div className="navbar bg-[rgba(0,0,0,.25)] text-white fixed z-10 font-semibold">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -67,7 +68,10 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          <Link to={"/"} className="btn border-none text-text bg-transparent">
+          <Link
+            to={"/"}
+            className="btn border-none text-text text-white hover:text-black bg-transparent"
+          >
             <img src={logo} alt="logo" className="w-12 h-12" /> {siteName}
           </Link>
           <div className=" hidden lg:block">
@@ -105,10 +109,10 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <NavLink to={"/sign-in"} className="btn mr-2">
+              <NavLink to={"/sign-in"} className="btn px-4 py-1 mr-2">
                 Sign In
               </NavLink>
-              <NavLink to={"/sign-up"} className="btn">
+              <NavLink to={"/sign-up"} className="btn px-4 py-1">
                 Sign Up
               </NavLink>
             </>
