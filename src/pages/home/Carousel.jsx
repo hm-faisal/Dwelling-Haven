@@ -4,7 +4,7 @@ import bgImage1 from "./../../assets/home/bg-home-1.jpg";
 import bgImage2 from "./../../assets/home/bg-home-2.jpg";
 import bgImage3 from "./../../assets/home/bg-home-3.jpg";
 import bgImage4 from "./../../assets/home/bg-home-4.jpg";
-import Tab from "./../pageComponents/Tab";
+import { Link } from "react-router";
 
 const carouselItems = [bgImage1, bgImage2, bgImage3, bgImage4];
 
@@ -36,7 +36,9 @@ const HomeCarousel = () => {
           range of properties tailored to your needs and preferences. Explore
           spaces perfect for living, working, or relaxing.
         </p>
-        <Tab />
+        <Link to="/all-properties" className="btn">
+          See all Property
+        </Link>
       </div>
     </div>
   );
