@@ -23,9 +23,9 @@ import UpdateProperties from "../pages/agent/UpdateProperties";
 import PropertyDetails from "../pages/property/PropertyDetails";
 import BuyProperty from "../pages/buyProperty/BuyProperty";
 import AllProperties from "../pages/allProperties/AllProperties";
-import PrivateRoute from "./PrivateRoute";
 import NotFound from "../pages/404/NotFound";
 import AdvertiseProperty from "../pages/admin/advertiseProperty/AdvertiseProperty";
+import ContactSection from "../pages/contact/ContactSection";
 
 const AllRoutes = () => {
   return (
@@ -34,23 +34,11 @@ const AllRoutes = () => {
         {/* Home page  */}
         <Route index element={<Home />} />
 
-        <Route
-          path="all-properties"
-          element={
-            <PrivateRoute>
-              <AllProperties />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/contact" element={<ContactSection />} />
 
-        <Route
-          path="properties/:id"
-          element={
-            <PrivateRoute>
-              <PropertyDetails />
-            </PrivateRoute>
-          }
-        />
+        <Route path="all-properties" element={<AllProperties />} />
+
+        <Route path="properties/:id" element={<PropertyDetails />} />
 
         {/* Auth Page  */}
         <Route path="sign-in" element={<SignIn />} />
